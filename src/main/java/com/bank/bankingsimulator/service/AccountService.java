@@ -12,19 +12,50 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public void save (Account account){
+    public void saveAccount (Account account){
         accountRepository.save(account);
     }
 
-    public float getBalance(String idAccount){
+    public float getBalanceAcount(String idAccount){
         return accountRepository.findById(idAccount).get().getBalance();
     }
-    public float makeDeposit(String idAccount, float amount){
+
+    /**
+     *
+     * @param idAccount
+     * @param amount
+     * @return total
+     */
+    public float makeDepositAccount(String idAccount, float amount){
         Account a = accountRepository.findById(idAccount).get();
         float total = a.getBalance() + amount;
         a.setBalance(total);
         accountRepository.save(a);
         return total;
     }
+
+    /**
+     *
+     * @param idAccount
+     * @param amount
+     * @return total
+     */
+    public float getFromAccount(String idAccount, float amount){
+        Account a = accountRepository.findById(idAccount).get();
+        float total = a.getBalance() - amount;
+        a.setBalance(total);
+        accountRepository.save(a);
+        return total;
+    }
+
+    public float addInterestAccount(String idAccount, float percent){
+        Account a = accountRepository.findById(idAccount).get();
+        float balance = a.getBalance();
+        float total = balance + (balance * (percent / 100))  ;
+        a.setBalance(total);
+        accountRepository.save(a);
+        return total;
+    }
+
 
 }

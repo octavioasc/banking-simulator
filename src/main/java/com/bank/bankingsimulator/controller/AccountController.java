@@ -15,17 +15,27 @@ public class AccountController {
 
 
     @PostMapping("/accounts")
-    public void save(@RequestBody Account account){
-        accountService.save(account);
+    public void saveAccount(@RequestBody Account account){
+        accountService.saveAccount(account);
     }
 
     @GetMapping("/getBalance/{id}")
-    public float getBalance(@PathVariable(name = "id") String id){
-        return  accountService.getBalance(id);
+    public float getBalanceAccount(@PathVariable(name = "id") String id){
+        return  accountService.getBalanceAcount(id);
     }
 
     @PostMapping("/makeDeposit")
-    public float makeDeposit(@RequestParam String id, @RequestParam float amount){
-        return accountService.makeDeposit(id, amount);
+    public float makeDepositAccount(@RequestParam String id, @RequestParam float amount){
+        return accountService.makeDepositAccount(id, amount);
+    }
+
+    @PostMapping("/getFromAccount")
+    public float getFromAccount(@RequestParam String id, @RequestParam float amount){
+        return accountService.getFromAccount(id, amount);
+    }
+
+    @PostMapping("/addInterest")
+    public float addInterestAccount(@RequestParam String id, @RequestParam float percent){
+        return accountService.addInterestAccount(id, percent);
     }
 }
