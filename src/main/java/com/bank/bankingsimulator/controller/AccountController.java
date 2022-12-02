@@ -2,6 +2,8 @@ package com.bank.bankingsimulator.controller;
 
 import com.bank.bankingsimulator.model.Account;
 import com.bank.bankingsimulator.service.AccountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,22 +22,54 @@ public class AccountController {
     }
 
     @GetMapping("/getBalance/{id}")
-    public float getBalanceAccount(@PathVariable(name = "id") String id){
-        return  accountService.getBalanceAcount(id);
+    public ResponseEntity<String> getBalanceAccount(@PathVariable(name = "id") String id){
+        float result;
+        try{
+            result = accountService.getBalanceAcount(id);
+        }catch (Exception e){
+                return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
+                    .body("Exception getBalanceAccount: " + e);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json")
+                .body("" + result);
     }
 
     @PostMapping("/makeDeposit")
-    public float makeDepositAccount(@RequestParam String id, @RequestParam float amount){
-        return accountService.makeDepositAccount(id, amount);
+    public ResponseEntity<String> makeDepositAccount(@RequestParam String id, @RequestParam float amount){
+        float result;
+        try{
+            result = accountService.makeDepositAccount(id,amount);
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
+                    .body("Exception makeDepositAccount: " + e);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json")
+                .body("" + result);
     }
 
     @PostMapping("/getFromAccount")
-    public float getFromAccount(@RequestParam String id, @RequestParam float amount){
-        return accountService.getFromAccount(id, amount);
+    public ResponseEntity<String> getFromAccount(@RequestParam String id, @RequestParam float amount){
+        float result;
+        try{
+            result = accountService.getFromAccount(id, amount);
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
+                    .body("Exception getFromAccount: " + e);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json")
+                .body("" + result);
     }
 
     @PostMapping("/addInterest")
-    public float addInterestAccount(@RequestParam String id, @RequestParam float percent){
-        return accountService.addInterestAccount(id, percent);
+    public ResponseEntity<String> addInterestAccount(@RequestParam String id, @RequestParam float percent){
+        float result;
+        try{
+            result = accountService.addInterestAccount(id, percent);
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
+                    .body("Exception addInterestAccount: " + e);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json")
+                .body("" + result);
     }
 }
