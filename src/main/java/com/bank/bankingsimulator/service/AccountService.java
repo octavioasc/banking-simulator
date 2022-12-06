@@ -17,7 +17,7 @@ public class AccountService   {
         accountRepository.save(account);
     }
 
-    public float getBalanceAcount(String idAccount) throws Exception {
+    public float getBalanceAcount(Long idAccount) throws Exception {
             Account a;
             try{
                 Optional<Account> result = accountRepository.findById(idAccount);
@@ -30,7 +30,7 @@ public class AccountService   {
             return a.getBalance() ;
     }
 
-    public float makeDepositAccount(String idAccount, float amount) throws Exception {
+    public float makeDepositAccount(Long idAccount, float amount) throws Exception {
         Optional<Account> result = accountRepository.findById(idAccount);
         float total;
         try{
@@ -46,7 +46,7 @@ public class AccountService   {
         return total;
     }
 
-    public float getFromAccount(String idAccount, float amount) throws Exception {
+    public float getFromAccount(Long idAccount, float amount) throws Exception {
         float total = 0;
         try{
             Optional<Account> result = accountRepository.findById(idAccount);
@@ -62,7 +62,7 @@ public class AccountService   {
         return total;
     }
 
-    public float addInterestAccount(String idAccount, float percent) throws Exception {
+    public float addInterestAccount(Long idAccount, float percent) throws Exception {
         float total, balance = 0;
         try{
             Optional<Account> result = accountRepository.findById(idAccount);

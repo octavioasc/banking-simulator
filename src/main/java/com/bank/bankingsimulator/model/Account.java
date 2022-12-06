@@ -1,12 +1,15 @@
 package com.bank.bankingsimulator.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Table;
 
-@Document(value = "Accounts")
+@Entity
+@Table
 public class Account {
-    @Id
-    private String id;
+    @jakarta.persistence.Id
+    @GeneratedValue
+    private Long id;
     private float balance;
     private String status;
 
@@ -14,17 +17,17 @@ public class Account {
 
     }
 
-    public Account(String id, float balance, String status) {
+    public Account(Long id, float balance, String status) {
         this.id = id;
         this.balance = balance;
         this.status = status;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

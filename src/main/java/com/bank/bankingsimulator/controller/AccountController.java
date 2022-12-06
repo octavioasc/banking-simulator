@@ -22,7 +22,7 @@ public class AccountController {
     }
 
     @GetMapping("/getBalance/{id}")
-    public ResponseEntity<String> getBalanceAccount(@PathVariable(name = "id") String id){
+    public ResponseEntity<String> getBalanceAccount(@PathVariable(name = "id") Long id){
         float result;
         try{
             result = accountService.getBalanceAcount(id);
@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @PostMapping("/makeDeposit")
-    public ResponseEntity<String> makeDepositAccount(@RequestParam String id, @RequestParam float amount){
+    public ResponseEntity<String> makeDepositAccount(@RequestParam Long id, @RequestParam float amount){
         float result;
         try{
             result = accountService.makeDepositAccount(id,amount);
@@ -48,7 +48,7 @@ public class AccountController {
     }
 
     @PostMapping("/getFromAccount")
-    public ResponseEntity<String> getFromAccount(@RequestParam String id, @RequestParam float amount){
+    public ResponseEntity<String> getFromAccount(@RequestParam Long id, @RequestParam float amount){
         float result;
         try{
             result = accountService.getFromAccount(id, amount);
@@ -61,7 +61,7 @@ public class AccountController {
     }
 
     @PostMapping("/addInterest")
-    public ResponseEntity<String> addInterestAccount(@RequestParam String id, @RequestParam float percent){
+    public ResponseEntity<String> addInterestAccount(@RequestParam Long id, @RequestParam float percent){
         float result;
         try{
             result = accountService.addInterestAccount(id, percent);
