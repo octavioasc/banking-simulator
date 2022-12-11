@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BankingSimulatorApplicationTests {
 
-    @Test
+    //@Test
     void contextLoads() {
     }
 

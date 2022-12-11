@@ -1,11 +1,12 @@
- version: '3'
- services:
-   postgres:
-     image: postgres
-     environment:
-       POSTGRES_PASSWORD: mysecretpassword
-     ports:
-       - '5436:5432'
-
-
-#docker run -d --name bank-simulator -e POSTGRES_PASSWORD=mysecretpassword -p 5436:5432 postgres
+version: '3'
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+  app:
+    image: banking-simulator-img
+    ports:
+      - '8080:8080'

@@ -54,4 +54,32 @@ public class AccountServiceTest {
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
         assertEquals(accountService.addInterestAccount(account.getId(), percent), initBalance + (initBalance * (percent / 100)) );
     }
+
+    @Test
+    /**
+     * Escenario1: Depósito(1000); Depósito(1000); Intereses(10 %); Consulta de Saldo => (2200)
+     */
+    void userCase1() throws Exception {
+        float initBalance = 0;
+        Account account = new Account(initBalance, "Available");
+        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        accountService.makeDepositAccount(account.getId(),1000);
+        accountService.makeDepositAccount(account.getId(),1000);
+        accountService.addInterestAccount(account.getId(),10);
+        assertEquals(accountService.getBalanceAcount(account.getId()), 2200);
+    }
+
+    @Test
+    /**
+     * Escenario2: Depósito(1000); Intereses(10 %); Depósito(1000); Consulta de Saldo => (2100)
+     */
+    void userCase2() throws Exception{
+        float initBalance = 0;
+        Account account = new Account(initBalance, "Available");
+        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        accountService.makeDepositAccount(account.getId(),1000);
+        accountService.addInterestAccount(account.getId(),10);
+        accountService.makeDepositAccount(account.getId(),1000);
+        assertEquals(accountService.getBalanceAcount(account.getId()), 2100);
+    }
 }

@@ -27,10 +27,6 @@ public class Account {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public float getBalance() {
         return balance;
     }
@@ -39,11 +35,4 @@ public class Account {
         this.balance = balance;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
