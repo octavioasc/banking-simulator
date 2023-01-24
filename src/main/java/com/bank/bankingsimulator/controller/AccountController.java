@@ -1,6 +1,7 @@
 package com.bank.bankingsimulator.controller;
 
 import com.bank.bankingsimulator.model.Account;
+import com.bank.bankingsimulator.model.Event;
 import com.bank.bankingsimulator.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

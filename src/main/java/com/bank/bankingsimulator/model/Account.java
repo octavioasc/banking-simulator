@@ -11,7 +11,6 @@ public class Account {
     @GeneratedValue
     private Long id;
     private float balance;
-    private String status;
 
     public Account(){
 
@@ -20,7 +19,6 @@ public class Account {
     public Account(float balance, String status) {
         this.id = id;
         this.balance = balance;
-        this.status = status;
     }
 
     public Long getId() {

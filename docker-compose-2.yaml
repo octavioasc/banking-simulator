@@ -1,12 +1,12 @@
 version: '3'
 services:
-  postgres:
+  postgres2:
     image: postgres
     ports:
-      - '5432:5432'
+      - '5433:5432'
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-  app:
-    image: banking-simulator-img
+  app2:
+    image: banking-simulator2-img
     ports:
-      - '8080:8080'
+      - '8081:8080'
