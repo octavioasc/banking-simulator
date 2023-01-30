@@ -14,17 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountServiceTest {
+public class AccountProducerServiceTest {
     @Mock
     private AccountRepository accountRepository;
     @InjectMocks
-    private AccountService accountService;
+    private AccountProducerService accountProducerService;
 
     @Test
     void getBalanceAccount() throws Exception {
         Account account = new Account(500, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        float balance = accountService.getBalanceAcount(account.getId());
+        float balance = accountProducerService.getBalanceAcount(account.getId());
         assertEquals(account.getBalance(),balance);
     }
 
@@ -34,7 +34,7 @@ public class AccountServiceTest {
         float amount = 1000;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountService.makeDepositAccount(account.getId(), amount), initBalance + amount);
+        assertEquals(accountProducerService.makeDepositAccount(account.getId(), amount), initBalance + amount);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class AccountServiceTest {
         float amount = 200;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountService.getFromAccount(account.getId(), amount), initBalance - amount);
+        assertEquals(accountProducerService.getFromAccount(account.getId(), amount), initBalance - amount);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AccountServiceTest {
         float percent = 1; //1%
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountService.addInterestAccount(account.getId(), percent), initBalance + (initBalance * (percent / 100)) );
+        assertEquals(accountProducerService.addInterestAccount(account.getId(), percent), initBalance + (initBalance * (percent / 100)) );
     }
 
     @Test
@@ -63,10 +63,10 @@ public class AccountServiceTest {
         float initBalance = 0;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        accountService.makeDepositAccount(account.getId(),1000);
-        accountService.makeDepositAccount(account.getId(),1000);
-        accountService.addInterestAccount(account.getId(),10);
-        assertEquals(accountService.getBalanceAcount(account.getId()), 2200);
+        accountProducerService.makeDepositAccount(account.getId(),1000);
+        accountProducerService.makeDepositAccount(account.getId(),1000);
+        accountProducerService.addInterestAccount(account.getId(),10);
+        assertEquals(accountProducerService.getBalanceAcount(account.getId()), 2200);
     }
 
     @Test
@@ -77,9 +77,9 @@ public class AccountServiceTest {
         float initBalance = 0;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        accountService.makeDepositAccount(account.getId(),1000);
-        accountService.addInterestAccount(account.getId(),10);
-        accountService.makeDepositAccount(account.getId(),1000);
-        assertEquals(accountService.getBalanceAcount(account.getId()), 2100);
+        accountProducerService.makeDepositAccount(account.getId(),1000);
+        accountProducerService.addInterestAccount(account.getId(),10);
+        accountProducerService.makeDepositAccount(account.getId(),1000);
+        assertEquals(accountProducerService.getBalanceAcount(account.getId()), 2100);
     }
 }

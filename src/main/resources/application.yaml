@@ -25,6 +25,6 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 #    topic:
-#      name: javaguides
+#      name: events
 #    topic-json:
 #      name: javaguides_json

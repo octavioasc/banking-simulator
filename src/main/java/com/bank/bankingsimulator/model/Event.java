@@ -28,6 +28,30 @@ public class Event {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public Account getA() {
         return a;
     }
@@ -36,19 +60,11 @@ public class Event {
         this.a = a;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     @Override
     public String toString() {
         return "Event{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
+                "name='" + this.name + '\'' +
+                ", value='" + this.value + '\'' +
                 '}';
     }
 }

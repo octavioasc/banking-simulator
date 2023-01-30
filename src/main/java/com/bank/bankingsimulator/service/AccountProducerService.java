@@ -1,24 +1,26 @@
 package com.bank.bankingsimulator.service;
 
+import com.bank.bankingsimulator.kafka.EventProducer;
 import com.bank.bankingsimulator.model.Account;
 import com.bank.bankingsimulator.model.Event;
 import com.bank.bankingsimulator.repository.AccountRepository;
 import com.bank.bankingsimulator.repository.EventRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class AccountService   {
+public class AccountProducerService {
     private final AccountRepository accountRepository;
-    private final EventRepository eventRepository;
-
-    public AccountService(AccountRepository accountRepository,
-                          EventRepository eventRepository) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountProducerService.class);
+    private EventProducer eventProducer;
+    public AccountProducerService(AccountRepository accountRepository,
+                                  EventRepository eventRepository, EventProducer kafkaProducer) {
         this.accountRepository = accountRepository;
-        this.eventRepository = eventRepository;
+        this.eventProducer = kafkaProducer;
     }
-
     public void saveAccount (Account account){
         accountRepository.save(account);
     }
@@ -33,7 +35,8 @@ public class AccountService   {
                 a = result.get();
                 event = new Event("getBalance");
                 event.setA(a);
-                eventRepository.save(event);
+                // send to kafka broker.
+                eventProducer.sendMessage(event);
             }catch (Exception e){
                 throw e;
             }
@@ -53,8 +56,10 @@ public class AccountService   {
             accountRepository.save(a);
             event  = new Event("makeDepositAccount",""+amount);
             event.setA(a);
-            eventRepository.save(event);
+            // send to kafka broker.
+            eventProducer.sendMessage(event);
         }catch (Exception e){
+            LOGGER.info(String.format("Excepcion: %s", e.getMessage()));
             throw e;
         }
         return total;
@@ -73,7 +78,8 @@ public class AccountService   {
             accountRepository.save(a);
             event = new Event("getFromAccount", ""+amount );
             event.setA(a);
-            eventRepository.save(event);
+            // send to kafka broker.
+            eventProducer.sendMessage(event);
         }catch (Exception e){
             throw e;
         }
@@ -94,7 +100,8 @@ public class AccountService   {
             accountRepository.save(a);
             event = new Event("addInterestAccount",""+percent);
             event.setA(a);
-            eventRepository.save(event);
+            // send to kafka broker.
+            eventProducer.sendMessage(event);
         }catch (Exception e){
             throw e;
         }
