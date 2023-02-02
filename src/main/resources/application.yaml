@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/postgres'
+    url: 'jdbc:postgresql://banking-simulator-postgres1-1:5432/postgres'  ## localhost ---> 'jdbc:postgresql://localhost:5432/postgres'
     username: postgres
     password: mysecretpassword
   jpa:
@@ -8,7 +8,7 @@ spring:
       ddl-auto: create
   kafka:
     consumer:
-      bootstarp-servers: localhost:9092
+      bootstrap-servers: broker:9092
       group-id: "myGroup"
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -20,7 +20,7 @@ spring:
               packages: '*'
 
     producer:
-      bootstarp-servers: localhost:9092
+      bootstrap-servers: broker:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
