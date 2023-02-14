@@ -12,9 +12,7 @@ public class Event {
 
     private String name;
     private String value;
-    @ManyToOne
-    @JoinColumn(name = "a_id")
-    private Account a;
+    private long account_id;
 
     public Event() {
     }
@@ -52,12 +50,12 @@ public class Event {
         this.value = value;
     }
 
-    public Account getA() {
-        return a;
+    public long getAccount_id() {
+        return account_id;
     }
 
-    public void setA(Account a) {
-        this.a = a;
+    public void setAccount_id(long account_id) {
+        this.account_id = account_id;
     }
 
     @Override

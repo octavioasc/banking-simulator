@@ -20,7 +20,7 @@ public class EventProducer {
     }
 
     public void sendMessage(Event data){
-        LOGGER.info(String.format("Message send -> %s", data.toString()));
+        LOGGER.info(String.format("Message send -> %s", data));
         Message<Event> message = MessageBuilder
                 .withPayload(data)
                 .setHeader(KafkaHeaders.TOPIC, "events")
