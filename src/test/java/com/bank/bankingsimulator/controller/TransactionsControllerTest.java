@@ -1,7 +1,8 @@
-package com.bank.bankingsimulator.service;
+package com.bank.bankingsimulator.controller;
 
 import com.bank.bankingsimulator.model.Account;
 import com.bank.bankingsimulator.repository.AccountRepository;
+import com.bank.bankingsimulator.service.BankingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,19 +16,22 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class BankingServiceTest {
+public class TransactionsControllerTest {
 
     @Mock
     private AccountRepository accountRepository;
     @InjectMocks
     private BankingService bankingService;
 
+    private TransactionsController transactionsController;
+
     @Test
-    void getBalance() throws Exception {
-        Account account = new Account(500);
+    void getBalance() {
+        float initBalance = 500;
+        Account account = new Account(initBalance);
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        float balance = bankingService.getBalance(account.getId());
-        assertEquals(account.getBalance(),balance);
+        transactionsController = new TransactionsController(bankingService);
+        assertEquals(initBalance, Double.valueOf(transactionsController.getBalance(account.getId()).getBody()));
     }
 
     @Test
@@ -36,7 +40,8 @@ public class BankingServiceTest {
         float amount = 1000;
         Account account = new Account(initBalance);
         lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(bankingService.deposit(account.getId(), amount), initBalance + amount);
+        transactionsController = new TransactionsController(bankingService);
+        assertEquals(initBalance + amount, Double.valueOf(transactionsController.deposit(account.getId(), amount).getBody()));
     }
 
     @Test
@@ -45,7 +50,8 @@ public class BankingServiceTest {
         float amount = 200;
         Account account = new Account(initBalance);
         lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(bankingService.withdraw(account.getId(), amount), initBalance - amount);
+        transactionsController = new TransactionsController(bankingService);
+        assertEquals(initBalance - amount, Double.valueOf(transactionsController.withdraw(account.getId(), amount).getBody()));
     }
 
     @Test
@@ -54,9 +60,11 @@ public class BankingServiceTest {
         float percent = 1; //1%
         Account account = new Account(initBalance);
         lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(bankingService.addInterest(account.getId(), percent), initBalance + (initBalance * (percent / 100)) );
+        transactionsController = new TransactionsController(bankingService);
+        assertEquals(initBalance + (initBalance * (percent / 100)), Double.valueOf(transactionsController.addInterest(account.getId(), percent).getBody()));
     }
-   @Test
+
+    @Test
     /**
      * Escenario1: Depósito(1000); Depósito(1000); Intereses(10 %); Consulta de Saldo => (2200)
      */
@@ -65,10 +73,11 @@ public class BankingServiceTest {
         float initBalance = 0;
         Account account = new Account(initBalance);
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        bankingService.deposit(account.getId(), 1000F);
-        bankingService.deposit(account.getId(),1000F);
-        bankingService.addInterest(account.getId(),10F);
-        assertEquals(bankingService.getBalance(account.getId()), 2200F);
+        transactionsController = new TransactionsController(bankingService);
+        transactionsController.deposit(account.getId(), 1000F);
+        transactionsController.deposit(account.getId(),1000F);
+        transactionsController.addInterest(account.getId(),10F);
+        assertEquals(Double.valueOf(transactionsController.getBalance(account.getId()).getBody()), 2200F);
     }
 
     @Test
@@ -79,11 +88,10 @@ public class BankingServiceTest {
         float initBalance = 0;
         Account account = new Account(initBalance);
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        bankingService.deposit(account.getId(),1000F);
-        bankingService.addInterest(account.getId(),10F);
-        bankingService.deposit(account.getId(),1000F);
-        assertEquals(bankingService.getBalance(account.getId()), 2100F);
+        transactionsController = new TransactionsController(bankingService);
+        transactionsController.deposit(account.getId(),1000F);
+        transactionsController.addInterest(account.getId(),10F);
+        transactionsController.deposit(account.getId(),1000F);
+        assertEquals(Double.valueOf(transactionsController.getBalance(account.getId()).getBody()), 2100F);
     }
 }
-
-

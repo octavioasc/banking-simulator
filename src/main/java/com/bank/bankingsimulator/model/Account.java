@@ -16,7 +16,7 @@ public class Account {
 
     }
 
-    public Account(float balance, String status) {
+    public Account(float balance) {
         this.id = id;
         this.balance = balance;
     }
