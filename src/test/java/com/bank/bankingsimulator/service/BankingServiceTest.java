@@ -11,22 +11,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountServiceTest {
+public class BankingServiceTest {
 
-    /*
-    @Mock
+/*    @Mock
     private AccountRepository accountRepository;
     @InjectMocks
-    private AccountProducerService accountProducerService;
+    private BankingService bankingService;
 
     @Test
     void getBalanceAccount() throws Exception {
         Account account = new Account(500, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        float balance = accountProducerService.getBalanceAcount(account.getId());
+        float balance = bankingService.getBalance(account.getId());
         assertEquals(account.getBalance(),balance);
     }
 
@@ -35,8 +35,8 @@ public class AccountServiceTest {
         float initBalance = 500;
         float amount = 1000;
         Account account = new Account(initBalance, "Available");
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountProducerService.makeDepositAccount(account.getId(), amount), initBalance + amount);
+        lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        assertEquals(bankingService.deposit(account.getBalance(), amount), initBalance + amount);
     }
 
     @Test
@@ -44,8 +44,8 @@ public class AccountServiceTest {
         float initBalance = 500;
         float amount = 200;
         Account account = new Account(initBalance, "Available");
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountProducerService.getFromAccount(account.getId(), amount), initBalance - amount);
+        lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        assertEquals(bankingService.withdraw(account.getBalance(), amount), initBalance - amount);
     }
 
     @Test
@@ -53,42 +53,38 @@ public class AccountServiceTest {
         float initBalance = 500;
         float percent = 1; //1%
         Account account = new Account(initBalance, "Available");
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        assertEquals(accountProducerService.addInterestAccount(account.getId(), percent), initBalance + (initBalance * (percent / 100)) );
-    }
-*/
+        lenient().when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        assertEquals(bankingService.addInterest(account.getBalance(), percent), initBalance + (initBalance * (percent / 100)) );
+    }*/
    //@Test
     /**
      * Escenario1: Depósito(1000); Depósito(1000); Intereses(10 %); Consulta de Saldo => (2200)
      */
 
-    /*
-    void userCase1() throws Exception {
+/*    void userCase1() throws Exception {
         float initBalance = 0;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        accountProducerService.makeDepositAccount(account.getId(),1000);
-        accountProducerService.makeDepositAccount(account.getId(),1000);
-        accountProducerService.addInterestAccount(account.getId(),10);
-        assertEquals(accountProducerService.getBalanceAcount(account.getId()), 2200);
-    }
-*/
+        bankingService.deposit(account.getBalance(), 1000F);
+        bankingService.deposit(account.getBalance(),1000F);
+        bankingService.addInterest(account.getBalance(),10F);
+        assertEquals(bankingService.getBalance(account.getId()), 2200F);
+    }*/
 
   //  @Test
+
     /**
      * Escenario2: Depósito(1000); Intereses(10 %); Depósito(1000); Consulta de Saldo => (2100)
      */
-     /*
-    void userCase2() throws Exception{
+/*    void userCase2() throws Exception{
         float initBalance = 0;
         Account account = new Account(initBalance, "Available");
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        accountProducerService.makeDepositAccount(account.getId(),1000);
-        accountProducerService.addInterestAccount(account.getId(),10);
-        accountProducerService.makeDepositAccount(account.getId(),1000);
-        assertEquals(accountProducerService.getBalanceAcount(account.getId()), 2100);
-    }
-      */
+        bankingService.deposit(account.getBalance(),1000F);
+        bankingService.addInterest(account.getBalance(),10F);
+        bankingService.deposit(account.getBalance(),1000F);
+        assertEquals(bankingService.getBalance(account.getId()), 2100F);
+    }*/
 }
 
 
