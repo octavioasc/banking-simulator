@@ -1,4 +1,3 @@
----
 version: '3'
 services:
   zookeeper:
@@ -28,3 +27,39 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  postgres1:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+
+  app1:
+    image: banking-simulator1-img
+    ports:
+      - '8081:8080'
+
+  postgres2:
+    image: postgres
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+
+  app2:
+    image: banking-simulator2-img
+    ports:
+      - '8082:8080'
+
+  postgres3:
+    image: postgres
+    ports:
+      - '5434:5432'
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+
+  app3:
+    image: banking-simulator3-img
+    ports:
+      - '8083:8080'

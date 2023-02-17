@@ -20,7 +20,7 @@ public class EventConsumer {
         this.bankingService = bankingService;
     }
 
-    @KafkaListener(topics = "events", groupId = "myGroup")
+    @KafkaListener(topics = "events", groupId = "myGroup3")
     public void consume(Event event){
         LOGGER.info(String.format("Json message received -> %s", event));
         eventRepository.save(event);

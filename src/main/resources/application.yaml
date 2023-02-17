@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/postgres'  ## docker ---> 'jdbc:postgresql://banking-simulator-postgres1-1:5432/postgres'
+    url: 'jdbc:postgresql://banking-simulator-postgres3-1:5432/postgres'  ## docker ---> 'jdbc:postgresql://banking-simulator-postgres1-1:5432/postgres'
                                                       ## localhost ---> 'jdbc:postgresql://localhost:5432/postgres'
     username: postgres
     password: mysecretpassword
@@ -9,8 +9,8 @@ spring:
       ddl-auto: create
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092 # localhost:9092 # broker:29092
-      group-id: "myGroup"
+      bootstrap-servers: broker:29092 # localhost:9092 # broker:29092
+      group-id: "myGroup3"
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -21,7 +21,7 @@ spring:
               packages: '*'
 
     producer:
-      bootstrap-servers: localhost:9092 # localhost:9092 # broker:29092
+      bootstrap-servers: broker:29092 # localhost:9092 # broker:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
