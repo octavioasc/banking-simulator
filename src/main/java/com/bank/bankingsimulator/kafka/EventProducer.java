@@ -19,7 +19,7 @@ public class EventProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(Event data){
+    public void newEvent(Event data){
         LOGGER.info(String.format("Message send -> %s", data));
         Message<Event> message = MessageBuilder
                 .withPayload(data)

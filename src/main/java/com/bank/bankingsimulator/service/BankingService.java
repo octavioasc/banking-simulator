@@ -12,11 +12,9 @@ import java.util.Optional;
 public class BankingService {
     private final AccountRepository accountRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(BankingService.class);
-
     public BankingService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
-
     public float getBalance(Long id) throws Exception{
         Account a;
         float balance = 0;

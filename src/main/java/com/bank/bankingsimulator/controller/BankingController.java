@@ -37,7 +37,7 @@ public class BankingController {
             event = new Event("deposit", String.valueOf(amount));
             event.setAccount_id(id);
             // send to kafka broker.
-            eventProducer.sendMessage(event);
+            eventProducer.newEvent(event);
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
                     .body("Exception deposit: " + e);
@@ -53,7 +53,7 @@ public class BankingController {
             event = new Event("withdraw", String.valueOf(amount));
             event.setAccount_id(id);
             // send to kafka broker.
-            eventProducer.sendMessage(event);
+            eventProducer.newEvent(event);
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
                     .body("Exception withdraw: " + e);
@@ -69,7 +69,7 @@ public class BankingController {
             event = new Event("addInterest", String.valueOf(percent));
             event.setAccount_id(id);
             // send to kafka broker.
-            eventProducer.sendMessage(event);
+            eventProducer.newEvent(event);
         }catch (Exception e){
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("Content-Type", "application/json")
                     .body("Exception addInterest: " + e);
